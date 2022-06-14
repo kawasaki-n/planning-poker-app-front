@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { FC, useCallback, useState } from 'react';
 
+import { ClearButton } from '@/components/molecules/ClearButton';
 import { Deck } from '@/components/molecules/Deck';
 
 export const Poker: FC = () => {
@@ -11,11 +11,15 @@ export const Poker: FC = () => {
     setBet(num);
   }, []);
 
+  const handleClear = useCallback(() => {
+    setBet(undefined);
+  }, []);
+
   return (
     <>
-      <Deck onCardClick={handleSelectCard}></Deck>
+      <Deck bet={bet} onCardClick={handleSelectCard}></Deck>
       <Divider />
-      <Typography>{bet}</Typography>
+      <ClearButton onClick={handleClear}></ClearButton>
     </>
   );
 };
