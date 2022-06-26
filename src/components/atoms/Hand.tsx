@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 
-const selectColor = '#FFF450';
+import { SELECT_COLOR } from '@/constants';
 
 type CardProps = {
   num: number | string;
@@ -18,7 +18,7 @@ export const Hand: FC<CardProps> = ({ num, bet, onCardClick }: CardProps) => {
     <Box>
       <Card
         onClick={() => onCardClick(num)}
-        sx={{ backgroundColor: num === bet ? selectColor : '' }}
+        sx={{ backgroundColor: num === bet ? SELECT_COLOR : '' }}
       >
         <CardActionArea>
           <CardContent>

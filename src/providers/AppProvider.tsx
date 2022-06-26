@@ -3,6 +3,8 @@ import { ReactNode, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter } from 'react-router-dom';
 
+import { SocketProvider } from './SocketProvider';
+
 const ErrorFallback = () => {
   return (
     <>
@@ -18,7 +20,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <Suspense fallback={<CircularProgress />}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <BrowserRouter>{children}</BrowserRouter>
+        <SocketProvider>
+          <BrowserRouter>{children}</BrowserRouter>
+        </SocketProvider>
       </ErrorBoundary>
     </Suspense>
   );
