@@ -1,7 +1,9 @@
-import axios from 'axios';
-
-import { API_URL } from '@/constants';
+import { axios } from './axios';
 
 export const loadConnections = (): Promise<any> => {
-  return axios.get(API_URL + '/connections').then((res) => res.data);
+  return axios.get(`/connection`).then((res) => res.data);
+};
+
+export const updateConnection = (id: string | undefined, payload: any): Promise<any> => {
+  return axios.put(`/connection/${id}`, payload).then((res) => res.data);
 };
