@@ -10,10 +10,10 @@ type DeckProps = {
 };
 
 export const Deck: FC<DeckProps> = ({ bet, onCardClick }: DeckProps) => {
-  const nums = [1, 2, 3, 5, 8, 13, 21, '?', '☕'];
+  const nums = [1, 2, 3, 5, 8, 13, 21, '☕'];
   return (
-    <Container sx={{ width: '100%', marginY: 3 }}>
-      <Stack direction="row" spacing={3} justifyContent="center" alignItems="center">
+    <Container sx={{ width: '100%', marginY: 5 }}>
+      <Stack direction="row" spacing={4} justifyContent="center" alignItems="center">
         {nums.map((num, i) => {
           return <Hand key={i} num={num} onCardClick={onCardClick} bet={bet} />;
         })}

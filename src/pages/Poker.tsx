@@ -1,7 +1,7 @@
 import Divider from '@mui/material/Divider';
 import { FC, useCallback, useState, useEffect } from 'react';
 
-import { updateConnection } from '@/api';
+import { updateAllConnections, updateConnection } from '@/api';
 import { Board } from '@/components/molecules/Board';
 import { ClearButton } from '@/components/molecules/ClearButton';
 import { Deck } from '@/components/molecules/Deck';
@@ -26,22 +26,48 @@ export const Poker: FC = () => {
     socket.onmessage = async (e) => {
       const data: MessageType = JSON.parse(e.data);
       setConnectionId(data.connectionId);
-      setConnections(data.connections);
+      setConnections(
+        data.connections.sort((a, b) => {
+          if (a.value && !b.value) {
+            return -1;
+          }
+          if (!a.value && b.value) {
+            return 1;
+          }
+          return 0;
+        })
+      );
+
+      // for clear
+      const connection = data.connections.find(
+        (connection) => connection.connectionId === connectionId
+      );
+      if (connection && !connection.value) {
+        setBet(undefined);
+      }
     };
-  }, [setConnections, socket]);
+  }, [bet, connectionId, connections, setConnections, socket]);
 
   const handleSelectCard = useCallback(
     async (num: number | string) => {
+      if (!socket) {
+        return;
+      }
       setBet(num);
       await updateConnection(connectionId, { value: num });
-      socket?.send(JSON.stringify({ action: 'update', data: '' }));
+      socket.send(JSON.stringify({ action: 'update', data: '' }));
     },
     [connectionId, socket]
   );
 
-  const handleClear = useCallback(() => {
+  const handleClear = useCallback(async () => {
+    if (!socket) {
+      return;
+    }
     setBet(undefined);
-  }, []);
+    await updateAllConnections({ value: '' });
+    socket.send(JSON.stringify({ action: 'update', data: '' }));
+  }, [socket]);
 
   return (
     <>

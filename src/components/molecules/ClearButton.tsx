@@ -7,7 +7,11 @@ type ClearButtonProps = {
 
 export const ClearButton: FC<ClearButtonProps> = ({ onClick }: ClearButtonProps) => {
   return (
-    <Button variant="contained" sx={{ width: '100%', margin: 3 }} onClick={onClick}>
+    <Button
+      variant="contained"
+      sx={{ width: '100%', margin: 3, position: 'absolute', bottom: 0 }}
+      onClick={onClick}
+    >
       クリア
     </Button>
   );
