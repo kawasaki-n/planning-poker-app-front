@@ -1,4 +1,9 @@
 export type MessageType = {
   connectionId: string;
-  connectionIds: Array<{ connectionId: string }>;
+  connections: Array<ConnectionType>;
+};
+
+export type ConnectionType = {
+  connectionId: string;
+  value: string | undefined;
 };

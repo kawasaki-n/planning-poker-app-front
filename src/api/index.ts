@@ -1,6 +1,8 @@
+import { ConnectionType } from '@/type';
+
 import { axios } from './axios';
 
-export const loadConnections = (): Promise<any> => {
+export const loadConnections = (): Promise<ConnectionType> => {
   return axios.get(`/connection`).then((res) => res.data);
 };
 

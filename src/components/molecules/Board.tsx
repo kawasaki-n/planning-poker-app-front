@@ -2,11 +2,13 @@ import Stack from '@mui/material/Stack';
 import { Container } from '@mui/system';
 import { FC } from 'react';
 
+import { ConnectionType } from '@/type';
+
 import { Bet } from '../atoms/Bet';
 
 type Props = {
   connectionId: string | undefined;
-  connections: Array<{ connectionId: string }>;
+  connections: Array<ConnectionType>;
 };
 
 export const Board: FC<Props> = ({ connectionId, connections }: Props) => {

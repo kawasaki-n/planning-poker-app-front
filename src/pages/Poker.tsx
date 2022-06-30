@@ -6,12 +6,12 @@ import { Board } from '@/components/molecules/Board';
 import { ClearButton } from '@/components/molecules/ClearButton';
 import { Deck } from '@/components/molecules/Deck';
 import { useWebSocketContext } from '@/providers/SocketProvider';
-import { MessageType } from '@/type';
+import { ConnectionType, MessageType } from '@/type';
 
 export const Poker: FC = () => {
   const { socket } = useWebSocketContext();
   const [connectionId, setConnectionId] = useState<string>();
-  const [connections, setConnections] = useState<Array<{ connectionId: string }>>([]);
+  const [connections, setConnections] = useState<Array<ConnectionType>>([]);
   const [bet, setBet] = useState<number | string | undefined>();
 
   useEffect(() => {
@@ -26,17 +26,17 @@ export const Poker: FC = () => {
     socket.onmessage = async (e) => {
       const data: MessageType = JSON.parse(e.data);
       setConnectionId(data.connectionId);
-      setConnections(data.connectionIds);
+      setConnections(data.connections);
     };
   }, [setConnections, socket]);
 
   const handleSelectCard = useCallback(
     async (num: number | string) => {
       setBet(num);
-      const ret = await updateConnection(connectionId, { value: bet });
-      console.log(ret);
+      await updateConnection(connectionId, { value: num });
+      socket?.send(JSON.stringify({ action: 'update', data: '' }));
     },
-    [bet, connectionId]
+    [connectionId, socket]
   );
 
   const handleClear = useCallback(() => {

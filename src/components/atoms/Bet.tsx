@@ -4,18 +4,19 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 
+import { ConnectionType } from '@/type';
+
 type Props = {
-  connection: { connectionId: string };
+  connection: ConnectionType;
   myself: boolean;
 };
 
-export const Bet: FC<Props> = ({ connection, myself }: Props) => {
-  console.log(connection, myself);
+export const Bet: FC<Props> = ({ connection }: Props) => {
   return (
     <Box>
       <Card>
         <CardContent>
-          <Typography variant="h4">{`?`}</Typography>
+          <Typography variant="h4">{connection.value}</Typography>
         </CardContent>
       </Card>
     </Box>
