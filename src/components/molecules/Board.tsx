@@ -8,32 +8,25 @@ import { Bet } from '../atoms/Bet';
 import { LoadingSpinner } from '../atoms/LoadingSpinner';
 
 type Props = {
-  connectionId: string | undefined;
   connections: Array<ConnectionType>;
+  loading: boolean;
 };
 
-export const Board: FC<Props> = ({ connectionId, connections }: Props) => {
+export const Board: FC<Props> = ({ connections, loading }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setOpen(connections.every((connection) => !!connection.value));
   }, [connections]);
 
-  if (connections.length === 0) {
+  if (connections.length === 0 || loading) {
     return <LoadingSpinner />;
   }
   return (
     <Container sx={{ width: '100%', height: '100%', marginY: 3 }}>
       <Stack direction="row" spacing={3} justifyContent="center" alignItems="center">
         {connections.map((connection, i) => {
-          return (
-            <Bet
-              key={i}
-              connection={connection}
-              myself={connection.connectionId === connectionId}
-              open={open}
-            ></Bet>
-          );
+          return <Bet key={i} connection={connection} open={open}></Bet>;
         })}
       </Stack>
     </Container>

@@ -6,7 +6,6 @@ import { ConnectionType } from '@/type';
 
 type Props = {
   connection: ConnectionType;
-  myself: boolean;
   open: boolean;
 };
 
