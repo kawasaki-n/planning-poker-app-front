@@ -10,7 +10,7 @@ type DeckProps = {
 };
 
 export const Deck: FC<DeckProps> = ({ bet, onCardClick }: DeckProps) => {
-  const nums = [1, 2, 3, 5, 8, 13, 21, '☕'];
+  const nums = ['1/2', 1, 2, 3, 5, 8, 13, 21, '☕'];
   return (
     <Container sx={{ width: '100%', marginY: 5 }}>
       <Stack direction="row" spacing={4} justifyContent="center" alignItems="center">
