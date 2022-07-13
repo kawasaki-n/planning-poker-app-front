@@ -12,7 +12,7 @@ export const Header = () => {
             component={Link}
             to="/"
             noWrap
-            sx={{ textDecoration: 'none', flexGrow: 1 }}
+            sx={{ textDecoration: 'none' }}
           >
             プランニングポーカー
           </Typography>
