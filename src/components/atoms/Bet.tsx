@@ -1,4 +1,4 @@
-import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 
@@ -12,10 +12,14 @@ type Props = {
 export const Bet: FC<Props> = ({ connection, open }: Props) => {
   const value = connection.value;
   return (
-    <Box sx={{ p: 2, border: '2px dashed grey', height: '40px', width: '40px' }}>
+    <Stack
+      alignItems={'center'}
+      justifyContent={'center'}
+      sx={{ border: '2px dashed grey', height: '75px', width: '75px' }}
+    >
       <Typography align="center" variant="h4">
         {value ? (open ? value : '？') : ''}
       </Typography>
-    </Box>
+    </Stack>
   );
 };
